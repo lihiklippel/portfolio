@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Processes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">dbdome</div>
+    </header>
+    <main class="form-shell">
+      <div class="process-sparkles" id="processSparkles"></div>
+      <form class="processes-form" id="processesForm">
+        <h1 class="form-title">Processes</h1>
+
+        <div class="field-group">
+          <label for="process-name" class="field-label">Processes Name</label>
+          <select id="process-name" name="process-name" required>
+            <option value="" disabled selected>Select Processes Name</option>
+            <option value="export_nested_report_operation">export_nested_report_operation</option>
+            <option value="metrics_advisories">metrics_advisories</option>
+            <option value="metrics_category_definitions">metrics_category_definitions</option>
+            <option value="process_json_to_home_db">process_json_to_home_db</option>
+            <option value="save_mail">save_mail</option>
+            <option value="save_servers">save_servers</option>
+            <option value="widget_dashboard_json_export">widget_dashboard_json_export</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Active</label>
+          <div class="checkbox-field">
+            <span class="checkbox-placeholder">Select Active</span>
+            <label class="checkbox-option">
+              <input type="checkbox" name="active" value="true" />
+              <span>True</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="active" value="false" />
+              <span>False</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="interval" class="field-label">Interval</label>
+          <select id="interval" name="interval" required>
+            <option value="" disabled selected>Select Interval</option>
+            <option value="10">10</option>
+            <option value="60">60</option>
+          </select>
+        </div>
+
+        <button type="submit" class="primary-btn" id="deployBtn">
+          Deploy the Processes
+        </button>
+      </form>
+      <div class="process-success" id="processSuccess">
+        <p class="process-success-text">
+          The process has been successfully sent
+        </p>
+      </div>
+    </main>
+    <script>
+      const processesForm = document.getElementById("processesForm");
+      const deployBtn = document.getElementById("deployBtn");
+      const sparklesContainer = document.getElementById("processSparkles");
+      const successPopup = document.getElementById("processSuccess");
+
+      // Ensure only one Active checkbox is selected at a time
+      const activeCheckboxes = document.querySelectorAll(
+        '.checkbox-field input[type="checkbox"]'
+      );
+      activeCheckboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            activeCheckboxes.forEach((other) => {
+              if (other !== checkbox) {
+                other.checked = false;
+              }
+            });
+          }
+        });
+      });
+
+      function createSparkle(x, y, color, delay) {
+        const sparkle = document.createElement("div");
+        sparkle.className = `process-sparkle ${color}`;
+
+        sparkle.style.left = `${x}%`;
+        sparkle.style.top = `${y}%`;
+        sparkle.style.animationDelay = `${delay}s`;
+
+        sparklesContainer.appendChild(sparkle);
+
+        setTimeout(() => {
+          if (sparkle.parentNode) {
+            sparkle.parentNode.removeChild(sparkle);
+          }
+        }, 2500);
+      }
+
+      function emitSparkles() {
+        const rect = processesForm.getBoundingClientRect();
+        const centerX = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+        const centerY =
+          ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+
+        const count = 35;
+        for (let i = 0; i < count; i++) {
+          const offsetX = (Math.random() - 0.5) * 20;
+          const offsetY = (Math.random() - 0.5) * 10;
+          const x = centerX + offsetX;
+          const y = centerY + offsetY;
+          const color = Math.random() > 0.5 ? "cyan" : "white";
+          const delay = Math.random() * 0.3;
+          createSparkle(x, y, color, delay);
+        }
+      }
+
+      if (deployBtn && processesForm) {
+        deployBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          if (!processesForm.checkValidity()) {
+            processesForm.reportValidity();
+            return;
+          }
+
+          // Start exit animation
+          processesForm.classList.add("exiting");
+
+          // Emit sparkles
+          emitSparkles();
+
+          // Show success popup slightly after animation begins
+          setTimeout(() => {
+            successPopup.classList.add("show");
+
+            // After visible for a while, fade it out
+            setTimeout(() => {
+              successPopup.classList.add("exit");
+            }, 2500);
+          }, 400);
+        });
+      }
+    </script>
+  </body>
+</html>
+
+

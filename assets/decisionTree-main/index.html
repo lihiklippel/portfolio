@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Tree</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header id="mainHeader">
+        <div class="logo">
+            <img src="../../images/logodbdome.png" alt="dbdome logo" class="logo-img">
+            <span class="logo-text">dbdome</span>
+        </div>
+        <nav class="header-nav">
+            <button class="nav-button" id="dashboardBtn">Dashboard</button>
+            <button class="nav-button" id="adminBtn">Administration Panel</button>
+        </nav>
+    </header>
+
+    <div id="spark-animation"></div>
+    <div id="confetti-container"></div>
+    <div id="login-confetti-container"></div>
+    <div id="signup-confetti-container"></div>
+    <div id="welcome-message" class="welcome-message-hidden">Welcome to dbdome!</div>
+
+    <div id="app">
+        <div class="welcome-message-box" id="welcomeMessageBox" style="display: none;">
+            <p class="welcome-message-text">Welcome Back</p>
+        </div>
+        <div class="new-user-welcome" id="newUserWelcome" style="display: none;">
+            <p class="new-user-welcome-text">Welcome New User</p>
+        </div>
+        <form class="login-form" id="loginForm" autocomplete="off">
+          <h1 class="login-title">Login to dbdome</h1>
+          
+          <div class="form-field">
+            <label for="email" class="field-label">Email</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="password" class="field-label">Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-input"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" id="remember" name="remember" class="checkbox-input" />
+              <span class="checkbox-label">Remember me</span>
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="login-btn">Login Now</button>
+
+          <div class="signup-link">
+            <span>Don't have an account? </span>
+            <a href="#" class="signup-link-text" id="signupLink">Signup</a>
+          </div>
+        </form>
+        
+        <form class="signup-form" id="signupForm" autocomplete="off" style="display: none;">
+          <h1 class="signup-title">Signup to dbdome</h1>
+          
+          <div class="form-field">
+            <label for="signup-username" class="field-label">User Name</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <input
+                type="text"
+                id="signup-username"
+                name="username"
+                class="form-input"
+                placeholder="Enter your username"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="signup-email" class="field-label">Email</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <input
+                type="email"
+                id="signup-email"
+                name="email"
+                class="form-input"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="signup-password" class="field-label">Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input
+                type="password"
+                id="signup-password"
+                name="password"
+                class="form-input"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="signup-btn">Signup</button>
+        </form>
+     </div>
+
+    <div id="adminPanel" class="content-container" style="display: none;">
+        <div class="admin-wrapper">
+            <div class="admin-left-box user-management-box">
+                <h2 class="user-management-title">User Management</h2>
+                <form class="user-management-form">
+                    <div class="form-field">
+                        <label for="username">User Name:</label>
+                        <input type="text" id="username" name="username" placeholder="Enter username">
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="user@email.com">
+                    </div>
+                    <div class="form-field">
+                        <label for="role">Role:</label>
+                        <select id="role" name="role">
+                            <option value="">Select a role</option>
+                            <option value="administrator">Administrator</option>
+                            <option value="standard">Standard User</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" class="form-button" id="addUserBtn">Add User</button>
+                        <button type="button" class="form-button">Update User</button>
+                    </div>
+                </form>
+                <h3 class="user-list-title">User List</h3>
+                <table class="user-list-table">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Status</th>
+                            <th>Active Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>Active</td>
+                            <td>2h 15m</td>
+                        </tr>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>Active</td>
+                            <td>1h 30m</td>
+                        </tr>
+                        <tr>
+                            <td>Bob Johnson</td>
+                            <td>Inactive</td>
+                            <td>0m</td>
+                        </tr>
+                        <tr>
+                            <td>Alice Brown</td>
+                            <td>Active</td>
+                            <td>3h 45m</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin-grid">
+            <div class="admin-box server-names-box">
+                <h2 class="server-names-title">SERVER NAMES</h2>
+                <ul class="server-names-list">
+                    <li class="server-name-item">Server Alpha</li>
+                    <li class="server-name-item">Server Beta</li>
+                    <li class="server-name-item">Server Gamma</li>
+                    <li class="server-name-item">Server Delta</li>
+                    <li class="server-name-item">Server Epsilon</li>
+                </ul>
+            </div>
+            <div class="admin-box server-status-box">
+                <h2 class="server-status-title">Server Status</h2>
+                <ul class="server-list">
+                    <li class="server-item">
+                        <span class="server-name">Server Alpha</span>
+                        <span class="server-status status-active">ACTIVE</span>
+                        <span class="status-indicator indicator-active"></span>
+                    </li>
+                    <li class="server-item">
+                        <span class="server-name">Server Beta</span>
+                        <span class="server-status status-active">ACTIVE</span>
+                        <span class="status-indicator indicator-active"></span>
+                    </li>
+                    <li class="server-item">
+                        <span class="server-name">Server Gamma</span>
+                        <span class="server-status status-inactive">INACTIVE</span>
+                        <span class="status-indicator indicator-inactive"></span>
+                    </li>
+                    <li class="server-item">
+                        <span class="server-name">Server Delta</span>
+                        <span class="server-status status-active">ACTIVE</span>
+                        <span class="status-indicator indicator-active"></span>
+                    </li>
+                    <li class="server-item">
+                        <span class="server-name">Server Epsilon</span>
+                        <span class="server-status status-inactive">INACTIVE</span>
+                        <span class="status-indicator indicator-inactive"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="admin-box process-box">
+                <h2 class="process-title">Process Names</h2>
+                <ul class="process-list">
+                    <li class="process-item">Authentication Service</li>
+                    <li class="process-item">Data Sync Engine</li>
+                    <li class="process-item">Event Dispatcher</li>
+                    <li class="process-item">Reporting Scheduler</li>
+                    <li class="process-item">Audit Logger</li>
+                </ul>
+            </div>
+            <div class="admin-box user-status-box">
+                <div class="user-status-header">
+                    <span>User Names</span>
+                    <span>User Status</span>
+                </div>
+                <ul class="user-list">
+                    <li class="user-item">
+                        <span class="user-name">Alice Morgan</span>
+                        <span class="user-status-wrapper">
+                            <span class="user-status status-active">ACTIVE</span>
+                            <span class="status-indicator indicator-active"></span>
+                        </span>
+                    </li>
+                    <li class="user-item">
+                        <span class="user-name">Bradley Chen</span>
+                        <span class="user-status-wrapper">
+                            <span class="user-status status-inactive">INACTIVE</span>
+                            <span class="status-indicator indicator-inactive"></span>
+                        </span>
+                    </li>
+                    <li class="user-item">
+                        <span class="user-name">Carla Ruiz</span>
+                        <span class="user-status-wrapper">
+                            <span class="user-status status-active">ACTIVE</span>
+                            <span class="status-indicator indicator-active"></span>
+                        </span>
+                    </li>
+                    <li class="user-item">
+                        <span class="user-name">Daniel Okoye</span>
+                        <span class="user-status-wrapper">
+                            <span class="user-status status-active">ACTIVE</span>
+                            <span class="status-indicator indicator-active"></span>
+                        </span>
+                    </li>
+                    <li class="user-item">
+                        <span class="user-name">Eva Stein</span>
+                        <span class="user-status-wrapper">
+                            <span class="user-status status-inactive">INACTIVE</span>
+                            <span class="status-indicator indicator-inactive"></span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
