@@ -824,3 +824,20 @@
     requestTick();
 })();
 
+// Click animation for fullscreen collection section
+(function() {
+    const fullscreenDiv = document.querySelector('.collection-fullscreen');
+    
+    if (fullscreenDiv) {
+        fullscreenDiv.addEventListener('click', function() {
+            // Add pressed class for animation
+            this.classList.add('pressed');
+            
+            // Remove pressed class after animation completes
+            setTimeout(() => {
+                this.classList.remove('pressed');
+            }, 200);
+        });
+    }
+})();
+
