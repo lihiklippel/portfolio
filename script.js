@@ -489,17 +489,20 @@
 (function() {
     const navHome = document.getElementById('navHome');
     const navCollection = document.getElementById('navCollection');
+    const navApplications = document.getElementById('navApplications');
     const navContact = document.getElementById('navContact');
     const navAbout = document.getElementById('navBlog'); // About button uses navBlog ID
     const homeSection = document.getElementById('homeSection');
     const collectionSection = document.getElementById('collectionSection');
     const contactPageSection = document.getElementById('contactPageSection');
     const aboutSection = document.getElementById('aboutSection');
+    const applicationsSection = document.getElementById('applicationsSection');
 
     function clearBodyViewClasses() {
         document.body.classList.remove('collection-view');
         document.body.classList.remove('contact-view');
         document.body.classList.remove('about-view');
+        document.body.classList.remove('applications-view');
     }
 
     function showHome() {
@@ -507,6 +510,7 @@
         if (collectionSection) collectionSection.style.display = 'none';
         if (contactPageSection) contactPageSection.style.display = 'none';
         if (aboutSection) aboutSection.style.display = 'none';
+        if (applicationsSection) applicationsSection.style.display = 'none';
         clearBodyViewClasses();
         // Clear any hash from the URL when returning home
         if (window.history && window.history.replaceState) {
@@ -521,6 +525,7 @@
         if (collectionSection) collectionSection.style.display = 'block';
         if (contactPageSection) contactPageSection.style.display = 'none';
         if (aboutSection) aboutSection.style.display = 'none';
+        if (applicationsSection) applicationsSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('collection-view');
         if (window.history && window.history.replaceState) {
@@ -535,6 +540,7 @@
         if (collectionSection) collectionSection.style.display = 'none';
         if (contactPageSection) contactPageSection.style.display = 'block';
         if (aboutSection) aboutSection.style.display = 'none';
+        if (applicationsSection) applicationsSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('contact-view');
         if (window.history && window.history.replaceState) {
@@ -549,6 +555,7 @@
         if (collectionSection) collectionSection.style.display = 'none';
         if (contactPageSection) contactPageSection.style.display = 'none';
         if (aboutSection) aboutSection.style.display = 'block';
+        if (applicationsSection) applicationsSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('about-view');
         if (window.history && window.history.replaceState) {
@@ -566,8 +573,25 @@
             showContact();
         } else if (hash === '#about') {
             showAbout();
+        } else if (hash === '#applications') {
+            showApplications();
         } else {
             showHome();
+        }
+    }
+
+    function showApplications() {
+        if (homeSection) homeSection.style.display = 'none';
+        if (collectionSection) collectionSection.style.display = 'none';
+        if (contactPageSection) contactPageSection.style.display = 'none';
+        if (aboutSection) aboutSection.style.display = 'none';
+        if (applicationsSection) applicationsSection.style.display = 'block';
+        clearBodyViewClasses();
+        document.body.classList.add('applications-view');
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, '', window.location.pathname + '#applications');
+        } else {
+            window.location.hash = '#applications';
         }
     }
 
@@ -585,6 +609,13 @@
         navCollection.addEventListener('click', function(e) {
             e.preventDefault();
             showCollection();
+        });
+    }
+
+    if (navApplications) {
+        navApplications.addEventListener('click', function(e) {
+            e.preventDefault();
+            showApplications();
         });
     }
 
