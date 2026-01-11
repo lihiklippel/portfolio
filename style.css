@@ -167,8 +167,10 @@ body.collection-view {
     bottom: 2rem;
     right: 2rem;
     left: auto;
+    top: auto;
     flex-shrink: 0;
     z-index: 1500;
+    margin: 0;
 }
 
 .social-button {
