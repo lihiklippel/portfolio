@@ -490,6 +490,7 @@
     const navHome = document.getElementById('navHome');
     const navCollection = document.getElementById('navCollection');
     const navApplications = document.getElementById('navApplications');
+    const navGraphics = document.getElementById('navGraphics');
     const navContact = document.getElementById('navContact');
     const navAbout = document.getElementById('navBlog'); // About button uses navBlog ID
     const homeSection = document.getElementById('homeSection');
@@ -497,12 +498,14 @@
     const contactPageSection = document.getElementById('contactPageSection');
     const aboutSection = document.getElementById('aboutSection');
     const applicationsSection = document.getElementById('applicationsSection');
+    const graphicsPageSection = document.getElementById('graphicsPageSection');
 
     function clearBodyViewClasses() {
         document.body.classList.remove('collection-view');
         document.body.classList.remove('contact-view');
         document.body.classList.remove('about-view');
         document.body.classList.remove('applications-view');
+        document.body.classList.remove('graphics-view');
     }
 
     function showHome() {
@@ -511,6 +514,7 @@
         if (contactPageSection) contactPageSection.style.display = 'none';
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'none';
+        if (graphicsPageSection) graphicsPageSection.style.display = 'none';
         clearBodyViewClasses();
         // Clear any hash from the URL when returning home
         if (window.history && window.history.replaceState) {
@@ -526,6 +530,7 @@
         if (contactPageSection) contactPageSection.style.display = 'none';
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'none';
+        if (graphicsPageSection) graphicsPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('collection-view');
         if (window.history && window.history.replaceState) {
@@ -541,6 +546,7 @@
         if (contactPageSection) contactPageSection.style.display = 'block';
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'none';
+        if (graphicsPageSection) graphicsPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('contact-view');
         if (window.history && window.history.replaceState) {
@@ -556,6 +562,7 @@
         if (contactPageSection) contactPageSection.style.display = 'none';
         if (aboutSection) aboutSection.style.display = 'block';
         if (applicationsSection) applicationsSection.style.display = 'none';
+        if (graphicsPageSection) graphicsPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('about-view');
         if (window.history && window.history.replaceState) {
@@ -575,6 +582,8 @@
             showAbout();
         } else if (hash === '#applications') {
             showApplications();
+        } else if (hash === '#graphics') {
+            showGraphics();
         } else {
             showHome();
         }
@@ -586,12 +595,29 @@
         if (contactPageSection) contactPageSection.style.display = 'none';
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'block';
+        if (graphicsPageSection) graphicsPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('applications-view');
         if (window.history && window.history.replaceState) {
             window.history.replaceState(null, '', window.location.pathname + '#applications');
         } else {
             window.location.hash = '#applications';
+        }
+    }
+
+    function showGraphics() {
+        if (homeSection) homeSection.style.display = 'none';
+        if (collectionSection) collectionSection.style.display = 'none';
+        if (contactPageSection) contactPageSection.style.display = 'none';
+        if (aboutSection) aboutSection.style.display = 'none';
+        if (applicationsSection) applicationsSection.style.display = 'none';
+        if (graphicsPageSection) graphicsPageSection.style.display = 'block';
+        clearBodyViewClasses();
+        document.body.classList.add('graphics-view');
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, '', window.location.pathname + '#graphics');
+        } else {
+            window.location.hash = '#graphics';
         }
     }
 
@@ -630,6 +656,13 @@
         navAbout.addEventListener('click', function(e) {
             e.preventDefault();
             showAbout();
+        });
+    }
+
+    if (navGraphics) {
+        navGraphics.addEventListener('click', function(e) {
+            e.preventDefault();
+            showGraphics();
         });
     }
 })();
@@ -869,6 +902,92 @@
                 this.classList.remove('pressed');
             }, 200);
         });
+    }
+})();
+
+// Carousel functionality for Graphics & Creative page
+(function() {
+    function initCarousel(carouselContainer) {
+        const carouselTrack = carouselContainer.querySelector('.carousel-track');
+        const slides = carouselTrack ? carouselTrack.querySelectorAll('.carousel-slide') : [];
+        const prevButton = carouselContainer.querySelector('.carousel-arrow-left');
+        const nextButton = carouselContainer.querySelector('.carousel-arrow-right');
+        
+        if (!carouselTrack || !slides || slides.length === 0) {
+            return;
+        }
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+            // Remove active class from all slides in this carousel
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentIndex) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            if (currentIndex < 0) {
+                currentIndex = totalSlides - 1;
+            } else if (currentIndex >= totalSlides) {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }
+
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentIndex - 1);
+        }
+
+        // Initialize carousel
+        updateCarousel();
+
+        // Remove existing event listeners by cloning and replacing
+        if (nextButton) {
+            const newNextButton = nextButton.cloneNode(true);
+            nextButton.parentNode.replaceChild(newNextButton, nextButton);
+            newNextButton.addEventListener('click', nextSlide);
+        }
+
+        if (prevButton) {
+            const newPrevButton = prevButton.cloneNode(true);
+            prevButton.parentNode.replaceChild(newPrevButton, prevButton);
+            newPrevButton.addEventListener('click', prevSlide);
+        }
+    }
+
+    function initAllCarousels() {
+        const carouselContainers = document.querySelectorAll('.carousel-container');
+        carouselContainers.forEach(function(container) {
+            initCarousel(container);
+        });
+    }
+    
+    // Initialize all carousels when page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAllCarousels);
+    } else {
+        initAllCarousels();
+    }
+    
+    // Re-initialize carousels when graphics view is shown (in case of dynamic loading)
+    const graphicsSection = document.getElementById('graphicsPageSection');
+    if (graphicsSection) {
+        const observer = new MutationObserver(function(mutations) {
+            if (graphicsSection.style.display === 'block') {
+                setTimeout(initAllCarousels, 100);
+            }
+        });
+        observer.observe(graphicsSection, { attributes: true, attributeFilter: ['style'] });
     }
 })();
 

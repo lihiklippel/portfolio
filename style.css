@@ -254,6 +254,17 @@ body.applications-view .applications-page-section {
     display: block;
 }
 
+/* Graphics & Creative Page Section */
+.graphics-page-section {
+    display: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+body.graphics-view .graphics-page-section {
+    display: block;
+}
+
 /* Contact Page Section */
 .contact-page-section {
     display: none;
@@ -2093,6 +2104,231 @@ body.about-page {
     100% {
         opacity: 0;
         transform: translateY(-350px) translateX(var(--drift-x, 0px)) scale(0.4);
+    }
+}
+
+/* Graphics & Creative Page Styles */
+.graphics-section {
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    padding: 2rem 3rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graphics-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
+}
+
+.graphics-left,
+.graphics-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graphics-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.graphics-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.85);
+}
+
+.graphics-h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.3;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    margin: 0;
+    text-align: center;
+}
+
+.graphics-h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.3;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    margin: 0;
+    text-align: center;
+}
+
+/* Carousel Styles */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.carousel-wrapper {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-track {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+    pointer-events: none;
+}
+
+.carousel-slide.active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.carousel-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    object-fit: contain;
+}
+
+.carousel-arrow {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.carousel-arrow:active {
+    transform: scale(0.95);
+}
+
+.carousel-arrow svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+}
+
+/* Responsive Styles for Graphics & Creative Page */
+@media (max-width: 768px) {
+    .graphics-section {
+        padding: 2rem 1.5rem;
+        min-height: auto;
+    }
+
+    .graphics-inner {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .graphics-left,
+    .graphics-right {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .graphics-h1 {
+        font-size: 2rem;
+        line-height: 1.3;
+    }
+
+    .graphics-h2 {
+        font-size: 1.75rem;
+        line-height: 1.3;
+    }
+
+    .graphics-image {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .carousel-container {
+        flex-direction: row;
+        gap: 0.75rem;
+    }
+
+    .carousel-arrow {
+        width: 45px;
+        height: 45px;
+    }
+
+    .carousel-wrapper {
+        flex: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .graphics-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .graphics-inner {
+        gap: 1.5rem;
+    }
+
+    .graphics-h1 {
+        font-size: 1.75rem;
+    }
+
+    .graphics-h2 {
+        font-size: 1.5rem;
+    }
+
+    .carousel-arrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .carousel-arrow svg {
+        width: 20px;
+        height: 20px;
     }
 }
 
