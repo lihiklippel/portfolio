@@ -491,6 +491,7 @@
     const navCollection = document.getElementById('navCollection');
     const navApplications = document.getElementById('navApplications');
     const navGraphics = document.getElementById('navGraphics');
+    const navSocialMedia = document.getElementById('navSocialMedia');
     const navContact = document.getElementById('navContact');
     const navAbout = document.getElementById('navBlog'); // About button uses navBlog ID
     const homeSection = document.getElementById('homeSection');
@@ -499,6 +500,7 @@
     const aboutSection = document.getElementById('aboutSection');
     const applicationsSection = document.getElementById('applicationsSection');
     const graphicsPageSection = document.getElementById('graphicsPageSection');
+    const socialMediaPageSection = document.getElementById('socialMediaPageSection');
 
     function clearBodyViewClasses() {
         document.body.classList.remove('collection-view');
@@ -506,6 +508,7 @@
         document.body.classList.remove('about-view');
         document.body.classList.remove('applications-view');
         document.body.classList.remove('graphics-view');
+        document.body.classList.remove('social-media-view');
     }
 
     function showHome() {
@@ -515,6 +518,7 @@
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'none';
         if (graphicsPageSection) graphicsPageSection.style.display = 'none';
+        if (socialMediaPageSection) socialMediaPageSection.style.display = 'none';
         clearBodyViewClasses();
         // Clear any hash from the URL when returning home
         if (window.history && window.history.replaceState) {
@@ -531,6 +535,7 @@
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'none';
         if (graphicsPageSection) graphicsPageSection.style.display = 'none';
+        if (socialMediaPageSection) socialMediaPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('collection-view');
         if (window.history && window.history.replaceState) {
@@ -547,6 +552,7 @@
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'none';
         if (graphicsPageSection) graphicsPageSection.style.display = 'none';
+        if (socialMediaPageSection) socialMediaPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('contact-view');
         if (window.history && window.history.replaceState) {
@@ -563,6 +569,7 @@
         if (aboutSection) aboutSection.style.display = 'block';
         if (applicationsSection) applicationsSection.style.display = 'none';
         if (graphicsPageSection) graphicsPageSection.style.display = 'none';
+        if (socialMediaPageSection) socialMediaPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('about-view');
         if (window.history && window.history.replaceState) {
@@ -584,6 +591,8 @@
             showApplications();
         } else if (hash === '#graphics') {
             showGraphics();
+        } else if (hash === '#social-media') {
+            showSocialMedia();
         } else {
             showHome();
         }
@@ -596,6 +605,7 @@
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'block';
         if (graphicsPageSection) graphicsPageSection.style.display = 'none';
+        if (socialMediaPageSection) socialMediaPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('applications-view');
         if (window.history && window.history.replaceState) {
@@ -612,12 +622,30 @@
         if (aboutSection) aboutSection.style.display = 'none';
         if (applicationsSection) applicationsSection.style.display = 'none';
         if (graphicsPageSection) graphicsPageSection.style.display = 'block';
+        if (socialMediaPageSection) socialMediaPageSection.style.display = 'none';
         clearBodyViewClasses();
         document.body.classList.add('graphics-view');
         if (window.history && window.history.replaceState) {
             window.history.replaceState(null, '', window.location.pathname + '#graphics');
         } else {
             window.location.hash = '#graphics';
+        }
+    }
+
+    function showSocialMedia() {
+        if (homeSection) homeSection.style.display = 'none';
+        if (collectionSection) collectionSection.style.display = 'none';
+        if (contactPageSection) contactPageSection.style.display = 'none';
+        if (aboutSection) aboutSection.style.display = 'none';
+        if (applicationsSection) applicationsSection.style.display = 'none';
+        if (graphicsPageSection) graphicsPageSection.style.display = 'none';
+        if (socialMediaPageSection) socialMediaPageSection.style.display = 'block';
+        clearBodyViewClasses();
+        document.body.classList.add('social-media-view');
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, '', window.location.pathname + '#social-media');
+        } else {
+            window.location.hash = '#social-media';
         }
     }
 
@@ -663,6 +691,13 @@
         navGraphics.addEventListener('click', function(e) {
             e.preventDefault();
             showGraphics();
+        });
+    }
+
+    if (navSocialMedia) {
+        navSocialMedia.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSocialMedia();
         });
     }
 })();
